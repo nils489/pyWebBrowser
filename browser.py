@@ -21,7 +21,7 @@ def url_input_dialog():
     else:
         url_string = url_tuple[0]
         print("URL-String: "+url_string)
-    renderer.setUrl(QUrl(url_string))
+    renderer.setUrl(QUrl.fromUserInput(url_string))
 
 # keyboard shortcuts
 back_sk = QShortcut(QKeySequence(app.tr("Ctrl+H")),renderer)
