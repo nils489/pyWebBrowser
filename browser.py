@@ -14,8 +14,9 @@ renderer.show()
 
 def url_input_dialog():
     url_tuple = QInputDialog.getText(renderer,
-                                      app.tr("URL-Dialog"),
-                                      app.tr("URL:"))
+                                     app.tr("URL-Dialog"),
+                                     app.tr("URL:"),
+                                     text=renderer.url().toDisplayString())
     if not url_tuple[0]:
         url_string = renderer.url().toDisplayString()
         print("URL-String empty")
