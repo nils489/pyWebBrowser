@@ -23,6 +23,12 @@ def url_input_dialog():
         print("URL-String: "+url_string)
     renderer.setUrl(QUrl.fromUserInput(url_string))
 
+def search_page_input_dialog():
+    search_tuple = QInputDialog.getText(renderer,
+                                        app.tr("Search page"),
+                                        app.tr("search: "))
+    renderer.findText(search_tuple[0])
+
 def url_updated():
     renderer.setWindowTitle(renderer.url().toDisplayString())
 
@@ -30,11 +36,15 @@ def url_updated():
 back_sk = QShortcut(QKeySequence(app.tr("Ctrl+H")),renderer)
 reload_sk = QShortcut(QKeySequence(app.tr("F5")),renderer)
 urld_sk = QShortcut(QKeySequence(app.tr("Ctrl+G")),renderer)
+search_sk = QShortcut(QKeySequence(app.tr("/")),renderer)
 
 # renderer actions
 back_sk.activated.connect(lambda: renderer.triggerPageAction(QWebPage.Back))
 reload_sk.activated.connect(lambda: renderer.triggerPageAction(QWebPage.Reload))
 urld_sk.activated.connect(lambda: url_input_dialog())
+search_sk.activated.connect(lambda: search_page_input_dialog())
+
+# update view
 renderer.urlChanged.connect(lambda: url_updated())
 
 app.exec()
