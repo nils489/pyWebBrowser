@@ -4,7 +4,8 @@ from PyQt5.QtCore import QUrl, QObject, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QInputDialog
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 from PyQt5.QtWebKit import QWebSettings
-from shortcuts import pWB_shortcuts
+from pWB_shortcuts import pWB_shortcuts
+from pWB_settings import pWB_settings
 import sys
 
 app = QApplication(sys.argv)
@@ -34,11 +35,8 @@ def search_page_input_dialog():
 def url_updated():
     renderer.setWindowTitle(renderer.url().toDisplayString())
 
-def disable_javascript(sttngs):
-    sttngs.setAttribute(QWebSettings.JavascriptEnabled, False)
-
-def enable_javascript(sttngs):
-    sttngs.setAttribute(QWebSettings.JavascriptEnabled, True)
+# page settings
+p_settings = pWB_settings(renderer.page())
 
 # renderer actions
 sc = pWB_shortcuts(renderer)
@@ -46,14 +44,10 @@ sc.back_sc.activated.connect(lambda: renderer.triggerPageAction(QWebPage.Back))
 sc.reload_sc.activated.connect(lambda: renderer.triggerPageAction(QWebPage.Reload))
 sc.urld_sc.activated.connect(lambda: url_input_dialog())
 sc.search_sc.activated.connect(lambda: search_page_input_dialog())
-sc.disable_scripts_sc.activated.connect(lambda: disable_javascript(p_settings))
-sc.enable_scripts_sc.activated.connect(lambda: enable_javascript(p_settings))
-
-# page settings
-p_settings = renderer.page().settings()
-# disable javascript at startup (default behaviour)
-disable_javascript(p_settings)
-p_settings.setAttribute(QWebSettings.XSSAuditingEnabled, True)
+sc.disable_scripts_sc.activated.connect(lambda:
+                                        p_settings.ps.setAttribute(QWebSettings.JavascriptEnabled,False))
+sc.enable_scripts_sc.activated.connect(lambda:
+                                       p_settings.ps.setAttribute(QWebSettings.JavascriptEnabled,True))
 
 # update view
 renderer.urlChanged.connect(lambda: url_updated())
