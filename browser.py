@@ -32,8 +32,8 @@ def search_page_input_dialog():
                                         app.tr("search: "))
     renderer.findText(search_tuple[0])
 
-def url_updated():
-    renderer.setWindowTitle(renderer.url().toDisplayString())
+def title_updated():
+    renderer.setWindowTitle(renderer.title())
 
 # page settings
 p_settings = pWB_settings(renderer.page())
@@ -50,7 +50,7 @@ sc.enable_scripts_sc.activated.connect(lambda:
                                        p_settings.ps.setAttribute(QWebSettings.JavascriptEnabled,True))
 
 # update view
-renderer.urlChanged.connect(lambda: url_updated())
+renderer.titleChanged.connect(lambda: title_updated())
 
 app.exec()
 
