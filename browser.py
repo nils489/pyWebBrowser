@@ -59,6 +59,7 @@ enable_scripts_sk.activated.connect(lambda: enable_javascript(p_settings))
 p_settings = renderer.page().settings()
 # disable javascript at startup (default behaviour)
 disable_javascript(p_settings)
+p_settings.setAttribute(QWebSettings.XSSAuditingEnabled, True)
 
 # update view
 renderer.urlChanged.connect(lambda: url_updated())
