@@ -41,11 +41,13 @@ def search_page_input_dialog():
 def title_updated():
     renderer.setWindowTitle(renderer.title())
 
-def create_new_window(urlstring):
-    subprocess.run(["python",os.path.realpath(__file__),urlstring])
+def set_current_link(url):
+    print(url)
+    current_link = url
 
 # page settings
 p_settings = pWB_settings(renderer.page())
+current_link = ""
 
 # renderer actions
 sc = pWB_shortcuts(renderer)
@@ -57,8 +59,6 @@ sc.disable_scripts_sc.activated.connect(lambda:
                                         p_settings.ps.setAttribute(QWebSettings.JavascriptEnabled,False))
 sc.enable_scripts_sc.activated.connect(lambda:
                                        p_settings.ps.setAttribute(QWebSettings.JavascriptEnabled,True))
-renderer.pageAction(QWebPage.OpenLinkInNewWindow).triggered.connect(lambda:
-                                                             create_new_window("blog.fefe.de"))
 
 # update view
 renderer.titleChanged.connect(lambda: title_updated())
