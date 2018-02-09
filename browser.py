@@ -7,7 +7,6 @@ from PyQt5.QtWebKit import QWebSettings
 from pWB_shortcuts import pWB_shortcuts
 from pWB_settings import pWB_settings
 from pWB_session import pWB_session
-import subprocess
 import sys
 import os
 
