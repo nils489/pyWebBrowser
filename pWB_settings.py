@@ -13,3 +13,4 @@ class pWB_settings:
                                           False)
         self.page.settings().setAttribute(QWebEngineSettings.XSSAuditingEnabled,
                                           True)
+        self.startPageString = "ecosia.org"

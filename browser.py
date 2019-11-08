@@ -15,11 +15,18 @@ session = pWB_session([QWebEngineView()])
 # session.active_view.show()
 print("session created")
 
+# page settings
+p_settings = pWB_settings(session.active_view.page())
+print("successfully read pWB_settings")
+
 if len(sys.argv) > 1:
     if sys.argv[1]:
         initial_url = sys.argv[1]
         session.active_view.load(QUrl.fromUserInput(initial_url))
     print("starting with initial URL")
+else:
+    session.active_view.load(QUrl.fromUserInput(p_settings.startPageString))
+    print("starting with configured start page")
 
 
 def url_input_dialog():
@@ -52,10 +59,6 @@ def set_current_link(url):
     print(url)
     current_link = url
 
-
-# page settings
-p_settings = pWB_settings(session.active_view.page())
-print("successfully read pWB_settings")
 
 # active_view actions
 sc = pWB_shortcuts(session.active_view)
